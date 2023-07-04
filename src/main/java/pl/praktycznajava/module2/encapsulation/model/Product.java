@@ -9,7 +9,6 @@ import lombok.experimental.FieldDefaults;
 import java.math.BigDecimal;
 
 @Getter
-@Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor(staticName = "of")
 public class Product {
@@ -19,4 +18,10 @@ public class Product {
     int stockQuantity;
     double weight;
 
+    public void getFromStock(int quantity) {
+        if (this.stockQuantity < quantity)
+            throw new InsufficientStockException(this, quantity);
+
+        this.stockQuantity -= quantity;
+    }
 }
